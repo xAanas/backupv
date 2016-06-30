@@ -1,0 +1,6 @@
+name = tafta
+description = module for administrating maps.
+package = Drupal 7 Development
+core = 7.x
+version = "7.x-1.9"
+files[] = tafta.module
