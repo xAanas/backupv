@@ -206,7 +206,7 @@ a.pure-button-selected {
 	color: #777;
 }
 .pure-menu-link {
-	color: #fff !important;
+	color: #fff ;
 	background: #777;
 }
 .pure-menu-link:hover,

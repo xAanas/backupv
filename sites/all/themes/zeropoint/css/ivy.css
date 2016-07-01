@@ -199,7 +199,7 @@ a.pure-button-selected {
 	color: #5a7d4f;
 }
 .pure-menu-link {
-	color: #fff !important;
+	color: #fff ;
 	background: #5a7d4f;
 }
 .pure-menu-link:hover,

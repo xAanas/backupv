@@ -5,14 +5,23 @@
 <div id="headimg">
 
 <div id="header" role="banner">
-<div class="clearfix">
+   <?php 
+      $nodePath = drupal_get_path_alias();
+      //contact
+      if($nodePath === "node/1"){ 
+        echo '<div class="clearfix" style="background-color:#6AC3EA!important">';
+      //accueil
+      }else if($nodePath === "node") {
+        echo '<div class="clearfix" style="background-color:#F9E77D!important">';
+      }
+      ?>   
 <?php if (theme_get_setting('loginlinks') || $page['topreg']): ?>
   <div id="top-elements">
     <?php if (theme_get_setting('loginlinks')): ?><div id="user_links"><?php print login_links() ?></div><?php endif; ?>
     <?php if ($page['topreg']): ?><div id="topreg"><?php print render ($page['topreg']); ?></div><?php endif; ?>
   </div>
 <?php endif; ?>
-  <?php if ($logo): ?><a href="<?php print check_url($front_page); ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" class="logoimg" /></a><?php endif; ?>
+  <?php if ($logo): ?><a href="<?php print check_url($front_page); ?>" title="<?php print t('Home'); ?>" class="mylogo"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" class="logoimg"/></a><?php endif; ?>
   <div id="name-and-slogan">
   <?php if ($site_name): ?>
     <?php if ($title && theme_get_setting('page_h1') == '0'): ?>
@@ -25,7 +34,17 @@
   </div>
 </div>
 <?php if ($page['header']): ?><?php print render ($page['header']); ?><?php endif; ?>
-<div class="menuband clearfix">
+<?php 
+      $nodePath = drupal_get_path_alias();
+      //contact
+      if($nodePath === "node/1"){ 
+        echo '<div class="menuband clearfix" style="background-color:#6AC3EA">';
+      //accueil
+      }else if($nodePath === "node") {
+        echo '<div class="menuband clearfix" style="background-color:#F9E77D">';
+      }
+      ?>     
+
   <div id="menu" class="menu-wrapper">
   <?php if ($logo || $site_name): ?>
     <a href="<?php print check_url($front_page); ?>" class="pure-menu-heading" title="<?php if ($site_slogan) print $site_slogan; ?>">

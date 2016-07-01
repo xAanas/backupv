@@ -12,6 +12,9 @@
 //    ),
 //  );
 //}
+
+$_SESSION['myurl'] = drupal_get_path_alias();
+
 function alertes_block_info() { 
   return array( 
     'nombreAlerte' => array( 
