@@ -4,6 +4,7 @@ description = <b>0 Point responsive theme</b> is ideal for a wide range of sites
 core = 7.x
 
 stylesheets[all][] = css/tafta/tafta.css
+stylesheets[all][] = css/tafta/media.css
 
 regions[page_top] = Page top
 regions[sidebar_first] = Sidebar first

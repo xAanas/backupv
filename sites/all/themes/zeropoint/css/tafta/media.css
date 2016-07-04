@@ -1,0 +1,67 @@
+@font-face { font-family: Jaapokki; src: url('Jaapokki-Regular.otf'); } 
+
+.leaf,h1,h2{
+    font-family: Jaapokki;
+}
+
+p{
+    font-family: helvetica!important;
+}
+
+
+.media,.media-body{zoom:1;overflow:hidden}.media-body{width:520px}.media-object{display:block}.media-object.img-thumbnail{max-width:none}.media-right,.media>.pull-right{padding-left:10px}.media-left,.media-right,.media-body{display:table-cell;vertical-align:top}
+ .media-heading{margin-top:0;margin-bottom:5px}.media-list{padding-left:0;list-style:none}
+ .media-left,.media>.pull-left{padding-right:10px}
+ .pull-left{float:left}
+ 
+ 
+ .anas-list li {
+     margin-bottom: 10px
+ }
+ .anas-list .media-body{
+     padding-top: 7px;
+         
+ }
+
+ .anas_action img{
+     width:500px;
+     float : left!important;
+ }
+ 
+ 
+ .pure-img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block!important;
+}
+
+.media-heading{
+    padding-top: 12px;
+}
+
+
+.media-heading a:before{
+    content: " > ";
+}
+
+
+dropdown-content {
+    display: none;
+    position: static;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.news-field .media-body{
+    width: 520px;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+

@@ -13,6 +13,11 @@
       //accueil
       }else if($nodePath === "node") {
         echo '<div class="clearfix" style="background-color:#F9E77D!important">';
+      //formulaire rejoindre la campagne  
+      }else if($nodePath === "node/4") {
+        echo '<div class="clearfix" style="background-color:#9ED385!important">';
+      }else {
+        echo '<div class="clearfix" style="background-color:#F46E6E!important">';
       }
       ?>   
 <?php if (theme_get_setting('loginlinks') || $page['topreg']): ?>
@@ -42,6 +47,11 @@
       //accueil
       }else if($nodePath === "node") {
         echo '<div class="menuband clearfix" style="background-color:#F9E77D">';
+      // formulaire rejoindre la campagne   
+      }else if($nodePath === "node/4") {
+        echo '<div class="menuband clearfix" style="background-color:#9ED385">';
+      }else {
+        echo '<div class="menuband clearfix" style="background-color:#F46E6E">';
       }
       ?>     
 

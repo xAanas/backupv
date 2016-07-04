@@ -17,4 +17,11 @@ mylogo{
    font-size:20px;
 }
 
+.leaf,h1,h2{
+    font-family: Gobold!important;
+}
+
+p{
+    font-family: "times new roman"!important;
+}
 
