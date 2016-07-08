@@ -213,7 +213,7 @@ function construire_tableau_trie_resume($rows,$rowsGou) {
     
     return $rows_resume;
 }
-function alertes_menu() {
+function tafta_menu() {
   
   $items = array();
   
@@ -255,6 +255,11 @@ function alertes_menu() {
       'access arguments' =>  array('access content'),
       'page callback' => 'showmapdesalertes',
     );
+     $items['cartehorstafta'] = array(
+      'title' => 'Carte des hors TAFTA',
+      'access arguments' =>  array('access content'),
+      'page callback' => 'showcartehorstafta',
+    );
      
      $items['mapjson']=array(
        'access arguments' =>  array('access content'),
@@ -264,6 +269,7 @@ function alertes_menu() {
     return $items;
   }
   
+// carte des alertes watchwater  
 function alertes_theme() {
     return array("mapdesalertes"=>array(
             'template' => 'mapdesalertes',
@@ -281,6 +287,26 @@ function showmapdesalertes() {
     $module_path = drupal_get_path('module', 'alertes');
   //  drupal_add_js($module_path . '/bootstrap-wysiwyg/bootstrap-wysiwyg.js');
     return theme('mapdesalertes');
+}
+
+// préparer la carte des région hors tafta
+function tafta_theme() {
+    return array("cartehorstafta"=>array(
+            'template' => 'cartehorstafta',
+            'path' => drupal_get_path('module', 'tafta') . '/templates',
+        ));
+}
+
+function tafta_preprocess_cartehorstafta(&$variables) {
+  drupal_add_css("http://openlayers.org/en/v3.14.2/css/ol.css", array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+
+  drupal_add_js('http://openlayers.org/en/v3.14.2/build/ol.js', 'external');
+}
+
+function showcartehorstafta() {
+    $module_path = drupal_get_path('module', 'tafta');
+  //  drupal_add_js($module_path . '/bootstrap-wysiwyg/bootstrap-wysiwyg.js');
+    return theme('cartehorstafta');
 }
 
 
