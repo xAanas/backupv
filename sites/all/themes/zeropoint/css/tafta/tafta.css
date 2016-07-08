@@ -6,10 +6,7 @@
     padding: 10px;
     padding-left:25%!important;
 }
-mylogo{
-    
-    padding-top: 200px!imporant;
-}
+
 .pure-menu-link{
    font-family: Gobold!important; 
    color:black!important;
@@ -25,3 +22,6 @@ p{
     font-family: "times new roman"!important;
 }
 
+.mylogo{
+     padding-top: 200px!imporant;
+}
