@@ -1,0 +1,38 @@
+<?php
+
+function _addressfield_picker_countries() {
+  $countries = &drupal_static(__FUNCTION__);
+  if (empty($countries)) {
+    include_once('includes/locale.inc');
+    $countries = country_get_list();
+  }
+  return $countries;
+}
+
+
+function addressfield_picker_webform_component_info() {
+  $components = array();
+  $components['address'] = array(
+    'label' => t('Address(OSM)'),
+    'description' => t('Create Address Picker to select address from Open Street Map'),
+    'features' => array(
+      'csv' => TRUE,
+      'email' => TRUE,
+      'email_address' => FALSE,
+      'email_name' => FALSE,
+      'required' => FALSE,
+      'title_display' => FALSE,
+      'title_inline' => FALSE,
+      'conditional' => FALSE,
+      'group' => FALSE,
+      'spam_analysis' => FALSE,
+      'attachment' => FALSE,
+    ),
+    'file' => 'components/address.inc',
+  );
+  
+  return $components;
+}
+
+
+?>

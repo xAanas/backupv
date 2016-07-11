@@ -1,0 +1,14 @@
+name = Address Field Picker Based on Opestreetmap
+description = Manage a flexible address field
+core = 7.x
+package = Fields
+dependencies[] = fontawesome
+dependencies[] = jquery_update
+
+
+
+; Information added by Drupal.org packaging script on 2015-10-07
+version = "7.x-1.2"
+core = "7.x"
+project = "addressfield_picker"
+datestamp = "1444254070"
