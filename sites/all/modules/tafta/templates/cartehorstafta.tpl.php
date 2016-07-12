@@ -1,4 +1,6 @@
+<div id='compteur'></div>
 <div id='map'></div>
+<div id='list'></div>
 <script>
 
 jQuery(function () {
@@ -27,25 +29,29 @@ var vectorLayer = new ol.layer.Vector({
 
 
 jQuery.ajax({
-    url:'/?q=mapjson', 
+    url:'/?q=maptaftajson', 
     success:function(response){
             var i, lat, lon, geom, feature, features = [], style, rnd;
-
+            console.log(response);
             //var response = JSON.parse(response);
             //console.log(toto);
             var jsonlen = response.length;
             
             // a loop that handles each feature
-            for (var i=0; i<jsonlen; i++){
-                lat = parseFloat(response[i].latitude);
-                lon = parseFloat(response[i].longitude);
+            for (let cid of response.rowCid){
+                lat = parseFloat(response.rowLatitudes[cid]);
+                lon = parseFloat(response.rowLongitudes[cid]);
                 
                 
                  geom = new ol.geom.Point(
                     ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857')
                 );
 
-                feature = new ol.Feature(geom);
+                //feature = new ol.Feature(geom);
+                feature = new ol.Feature({
+                  geometry : geom,
+                  name : response.rowAdresse[cid]
+                });
                 features.push(feature);
                 
                 rnd = Math.random();
@@ -56,14 +62,16 @@ jQuery.ajax({
                           font: 'normal 18px FontAwesome',
                           textBaseline: 'Bottom',
                           fill: new ol.style.Fill({
-                            color: 'blue',
+                            color: 'red',
                           })
                         })
                       })
                 ];
 
                 feature.setStyle(style);
-                
+                feature.on("click",function(){
+                  alert("featureeee");
+                });
                 
                 
                 
@@ -97,7 +105,7 @@ jQuery.ajax({
                     new ol.interaction.DragRotateAndZoom()
                 ])
             });
-              
+            jQuery('#compteur').append('<h2> Vous êtes '+ response.compteur +' à nous soutenir !</h2>');
               
             }
           });
