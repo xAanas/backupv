@@ -280,11 +280,11 @@ function alertes_theme() {
         ));
 }
 
-function alertes_preprocess_mapdesalertes(&$variables) {
+/*function alertes_preprocess_mapdesalertes(&$variables) {
   drupal_add_css("http://openlayers.org/en/v3.14.2/css/ol.css", array('group' => CSS_DEFAULT, 'every_page' => TRUE));
 
   drupal_add_js('http://openlayers.org/en/v3.14.2/build/ol.js', 'external');
-}
+}*/
 
 function showmapdesalertes() {
     $module_path = drupal_get_path('module', 'alertes');
@@ -524,7 +524,7 @@ function afficher_map_alertes() {
                 $rowPostalCode[$result->sid] = $result->data;
              }
              if($result->no == 'field_display'){
-                $rowUneAdresse[$result->sid] = $result->data;
+                $rowAdresse[$result->sid] = $result->data;
              }
            }
     }
