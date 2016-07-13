@@ -292,11 +292,6 @@ function alertes_theme() {
         ));
 }
 
-/*function alertes_preprocess_mapdesalertes(&$variables) {
-  drupal_add_css("http://openlayers.org/en/v3.14.2/css/ol.css", array('group' => CSS_DEFAULT, 'every_page' => TRUE));
-
-  drupal_add_js('http://openlayers.org/en/v3.14.2/build/ol.js', 'external');
-}*/
 
 function showmapdesalertes() {
     $module_path = drupal_get_path('module', 'alertes');
@@ -313,9 +308,9 @@ function tafta_theme() {
 }
 
 function tafta_preprocess_cartehorstafta(&$variables) {
-  drupal_add_css("http://openlayers.org/en/v3.14.2/css/ol.css", array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+  //drupal_add_css("http://openlayers.org/en/v3.14.2/css/ol.css", array('group' => CSS_DEFAULT, 'every_page' => TRUE));
 
-  drupal_add_js('http://openlayers.org/en/v3.14.2/build/ol.js', 'external');
+  //drupal_add_js('http://openlayers.org/en/v3.14.2/build/ol.js', 'external');
 }
 
 function showcartehorstafta() {
