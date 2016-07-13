@@ -264,6 +264,18 @@ function tafta_menu() {
        'access arguments' =>  array('access content'),
        "page callback"=>'alertes_geolocation_submissions_tafta'
      );
+     $items['filtercite']=array(
+       'access arguments' =>  array('access content'),
+       "page callback"=>'filtercite_submissions_tafta'
+     );
+     $items['filteretat']=array(
+       'access arguments' =>  array('access content'),
+       "page callback"=>'filteretat_submissions_tafta'
+     );
+     $items['filterpays']=array(
+       'access arguments' =>  array('access content'),
+       "page callback"=>'filterpays_submissions_tafta'
+     );
      $items['mapjson']=array(
        'access arguments' =>  array('access content'),
        "page callback"=>'alertes_geolocation_submissions'
@@ -544,6 +556,378 @@ function afficher_map_alertes() {
       "rowCountry" => $rowCountry,
       "rowPostalCode" => $rowPostalCode,
       "compteur" => $compteur
+        ];
+    
+    //afficher la table des alertes
+    //$output = theme('table',array('header'=> $header, 'rows' => $rows));
+    header('Content-Type: application/json');
+    echo json_encode($rows);
+}
+/**
+   * générer la liste des géolocalisation des alertes actives
+   */
+  function filtercite_submissions_tafta() {
+    
+    //  *************    variables utilisées ****************
+    
+    // le header des enregistrement
+    $header = [];
+    // $rows tableau des enregistrements
+    
+    // liste des types
+    $rowType = array();
+    // liste des noms des lieux
+    $rowNomLieu = array();
+    // liste des dates de declarations
+    $rowDateDeclaration = array();
+    // liste des descriptions
+    $rowDescription = array();
+    // liste des nom et prenom
+    $rowNomPrenom = array();
+    // liste des email
+    $rowEmail = array();
+    // liste des adresse
+    $rowAdresse = array();
+    // liste des City
+    $rowCity = array();
+    // liste des Country
+    $rowCountry = array();
+    // liste des PostalCode
+    $rowPostalCode = array();
+    // liste des latitudes
+    $rowLatitudes = array();
+    // liste des longitudes
+    $rowLongitudes = array();
+    // liste cid situé dans les cité
+    $rowCityCid = array();
+    //compteur
+    $compteur = 0;
+    
+    // *************  corp de la fontion  *****************
+    $query = db_select('webform_submitted_data', 'al');
+    $query
+        ->fields('al',array('nid','sid','cid','data','no'))
+        ->condition('nid',array(4),'IN')
+        ->orderBy('sid','DESC');
+    
+    $results = $query->execute();
+    
+    $header = array(t('Gouvernorat'),t('Municipalité'),t('Latitude'),t('Longitude'));
+    
+    foreach ($results AS $result) {
+           if(!in_array($result->sid, $rowCid)){
+             $rowCid[] = $result->sid;
+             $compteur++;
+           }
+           if($result->cid == 1){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 2){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 3){
+             $rowNomLieu[$result->sid] = $result->data;
+           }
+           if($result->cid == 5){
+             $rowDateDeclaration[$result->sid] = $result->data;
+           }
+           if($result->cid == 6){
+             $rowDescription[$result->sid] = $result->data;
+           }
+           if($result->cid == 8){
+             $rowNomPrenom[$result->sid] = $result->data;
+           }
+           if($result->cid == 9){
+             $rowEmail[$result->sid] = $result->data;
+           }
+           if($result->cid == 12){
+
+             if($result->no == 'field_lattitude'){
+                $rowLatitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_longitude'){
+                $rowLongitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_city'){
+                $rowCity[$result->sid] = $result->data;
+                $rowCityCid[$result->data][] = $result->sid;
+             }
+             if($result->no == 'field_country'){
+                $rowCountry[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_postalcode'){
+                $rowPostalCode[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_display'){
+                $rowAdresse[$result->sid] = $result->data;
+             }
+           }
+    }
+    
+    $rows = [
+      "rowCid" => $rowCid,
+      "rowType" => $rowType,
+      "rowNomLieu" => $rowNomLieu,
+      "rowDateDeclaration" => $rowDateDeclaration,
+      "rowDescription" => $rowDescription,
+      "rowNomPrenom" => $rowNomPrenom,
+      "rowEmail" => $rowEmail,
+      "rowAdresse" => $rowAdresse,
+      "rowLatitudes" => $rowLatitudes,
+      "rowLongitudes" => $rowLongitudes,
+      "rowCity" => $rowCity,
+      "rowCountry" => $rowCountry,
+      "rowPostalCode" => $rowPostalCode,
+      "compteur" => $compteur,
+      "rowCityCid" => $rowCityCid
+        ];
+    
+    //afficher la table des alertes
+    //$output = theme('table',array('header'=> $header, 'rows' => $rows));
+    header('Content-Type: application/json');
+    echo json_encode($rows);
+}
+/**
+   * générer la liste des géolocalisation des alertes actives
+   */
+  function filteretat_submissions_tafta() {
+    
+    //  *************    variables utilisées ****************
+    
+    // le header des enregistrement
+    $header = [];
+    // $rows tableau des enregistrements
+    
+    // liste des types
+    $rowType = array();
+    // liste des noms des lieux
+    $rowNomLieu = array();
+    // liste des dates de declarations
+    $rowDateDeclaration = array();
+    // liste des descriptions
+    $rowDescription = array();
+    // liste des nom et prenom
+    $rowNomPrenom = array();
+    // liste des email
+    $rowEmail = array();
+    // liste des adresse
+    $rowAdresse = array();
+    // liste des City
+    $rowCity = array();
+    // liste des Country
+    $rowCountry = array();
+    // liste des PostalCode
+    $rowPostalCode = array();
+    // liste des latitudes
+    $rowLatitudes = array();
+    // liste des longitudes
+    $rowLongitudes = array();
+    // liste cid situé dans les cité
+    $rowEtatCid = array();
+    //compteur
+    $compteur = 0;
+    
+    // *************  corp de la fontion  *****************
+    $query = db_select('webform_submitted_data', 'al');
+    $query
+        ->fields('al',array('nid','sid','cid','data','no'))
+        ->condition('nid',array(4),'IN')
+        ->orderBy('sid','DESC');
+    
+    $results = $query->execute();
+    
+    $header = array(t('Gouvernorat'),t('Municipalité'),t('Latitude'),t('Longitude'));
+    
+    foreach ($results AS $result) {
+           if(!in_array($result->sid, $rowCid)){
+             $rowCid[] = $result->sid;
+             $compteur++;
+           }
+           if($result->cid == 1){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 2){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 3){
+             $rowNomLieu[$result->sid] = $result->data;
+           }
+           if($result->cid == 5){
+             $rowDateDeclaration[$result->sid] = $result->data;
+           }
+           if($result->cid == 6){
+             $rowDescription[$result->sid] = $result->data;
+           }
+           if($result->cid == 8){
+             $rowNomPrenom[$result->sid] = $result->data;
+           }
+           if($result->cid == 9){
+             $rowEmail[$result->sid] = $result->data;
+           }
+           if($result->cid == 12){
+
+             if($result->no == 'field_lattitude'){
+                $rowLatitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_longitude'){
+                $rowLongitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_state'){
+                $rowCity[$result->sid] = $result->data;
+                $rowCityCid[$result->data][] = $result->sid;
+             }
+             if($result->no == 'field_country'){
+                $rowCountry[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_postalcode'){
+                $rowPostalCode[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_display'){
+                $rowAdresse[$result->sid] = $result->data;
+             }
+           }
+    }
+    
+    $rows = [
+      "rowCid" => $rowCid,
+      "rowType" => $rowType,
+      "rowNomLieu" => $rowNomLieu,
+      "rowDateDeclaration" => $rowDateDeclaration,
+      "rowDescription" => $rowDescription,
+      "rowNomPrenom" => $rowNomPrenom,
+      "rowEmail" => $rowEmail,
+      "rowAdresse" => $rowAdresse,
+      "rowLatitudes" => $rowLatitudes,
+      "rowLongitudes" => $rowLongitudes,
+      "rowCity" => $rowCity,
+      "rowCountry" => $rowCountry,
+      "rowPostalCode" => $rowPostalCode,
+      "compteur" => $compteur,
+      "rowCityCid" => $rowCityCid
+        ];
+    
+    //afficher la table des alertes
+    //$output = theme('table',array('header'=> $header, 'rows' => $rows));
+    header('Content-Type: application/json');
+    echo json_encode($rows);
+}
+/**
+   * générer la liste des géolocalisation des alertes actives
+   */
+  function filterpays_submissions_tafta() {
+    
+    //  *************    variables utilisées ****************
+    
+    // le header des enregistrement
+    $header = [];
+    // $rows tableau des enregistrements
+    
+    // liste des types
+    $rowType = array();
+    // liste des noms des lieux
+    $rowNomLieu = array();
+    // liste des dates de declarations
+    $rowDateDeclaration = array();
+    // liste des descriptions
+    $rowDescription = array();
+    // liste des nom et prenom
+    $rowNomPrenom = array();
+    // liste des email
+    $rowEmail = array();
+    // liste des adresse
+    $rowAdresse = array();
+    // liste des City
+    $rowCity = array();
+    // liste des Country
+    $rowCountry = array();
+    // liste des PostalCode
+    $rowPostalCode = array();
+    // liste des latitudes
+    $rowLatitudes = array();
+    // liste des longitudes
+    $rowLongitudes = array();
+    // liste cid situé dans les cité
+    $rowPaysCid = array();
+    //compteur
+    $compteur = 0;
+    
+    // *************  corp de la fontion  *****************
+    $query = db_select('webform_submitted_data', 'al');
+    $query
+        ->fields('al',array('nid','sid','cid','data','no'))
+        ->condition('nid',array(4),'IN')
+        ->orderBy('sid','DESC');
+    
+    $results = $query->execute();
+    
+    $header = array(t('Gouvernorat'),t('Municipalité'),t('Latitude'),t('Longitude'));
+    
+    foreach ($results AS $result) {
+           if(!in_array($result->sid, $rowCid)){
+             $rowCid[] = $result->sid;
+             $compteur++;
+           }
+           if($result->cid == 1){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 2){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 3){
+             $rowNomLieu[$result->sid] = $result->data;
+           }
+           if($result->cid == 5){
+             $rowDateDeclaration[$result->sid] = $result->data;
+           }
+           if($result->cid == 6){
+             $rowDescription[$result->sid] = $result->data;
+           }
+           if($result->cid == 8){
+             $rowNomPrenom[$result->sid] = $result->data;
+           }
+           if($result->cid == 9){
+             $rowEmail[$result->sid] = $result->data;
+           }
+           if($result->cid == 12){
+
+             if($result->no == 'field_lattitude'){
+                $rowLatitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_longitude'){
+                $rowLongitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_state'){
+                $rowCity[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_country'){
+                $rowCountry[$result->sid] = $result->data;
+                $rowCityCid[$result->data][] = $result->sid;
+             }
+             if($result->no == 'field_postalcode'){
+                $rowPostalCode[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_display'){
+                $rowAdresse[$result->sid] = $result->data;
+             }
+           }
+    }
+    
+    $rows = [
+      "rowCid" => $rowCid,
+      "rowType" => $rowType,
+      "rowNomLieu" => $rowNomLieu,
+      "rowDateDeclaration" => $rowDateDeclaration,
+      "rowDescription" => $rowDescription,
+      "rowNomPrenom" => $rowNomPrenom,
+      "rowEmail" => $rowEmail,
+      "rowAdresse" => $rowAdresse,
+      "rowLatitudes" => $rowLatitudes,
+      "rowLongitudes" => $rowLongitudes,
+      "rowCity" => $rowCity,
+      "rowCountry" => $rowCountry,
+      "rowPostalCode" => $rowPostalCode,
+      "compteur" => $compteur,
+      "rowCityCid" => $rowCityCid
         ];
     
     //afficher la table des alertes

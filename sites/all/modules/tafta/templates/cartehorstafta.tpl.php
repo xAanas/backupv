@@ -2,6 +2,12 @@
 <div id='map'></div>
 <div id='mapdiv'></div>
 <div id='list'></div>
+<h3>Veuillez choisir un filtre : </h3>
+<div align="right">
+<button id="cite">Cité</button>
+<button id="ville">Ville</button>
+<button id="pays">Pays</button>
+</div>
 <div id="accordion">
     
 </div>
@@ -46,7 +52,7 @@
               
               // a loop that handles each feature
               for (let cid of response.rowCid){
-                  jQuery('#accordion').append('<h3>'+ response.rowNomLieu[cid] +'</h3><div>adresse : '+ response.rowAdresse[cid]+'<br/> description : '+ response.rowDescription[cid]+'</div>')
+                  jQuery('#accordion').append('<h3>'+ response.rowNomLieu[cid] +'</h3><div>adresse : '+ response.rowAdresse[cid]+'<br/> description : '+ response.rowDescription[cid]+'</div>');
                   lat = parseFloat(response.rowLatitudes[cid]);
                   lon = parseFloat(response.rowLongitudes[cid]);
 
@@ -120,8 +126,67 @@
               $('#accordion').accordion();
           }
       });
-
-
+      $('#cite').on('click',function(){
+        jQuery.ajax({
+          url: '/?q=filtercite',
+          success: function (response) {
+            console.log(response);
+            $('#accordion').empty();
+            $.each(response.rowCityCid,function( index, values ) {
+              var ville = index;
+              var title = $('<h3>'+ index +'</h3><div id="'+index+'"></div>');
+              jQuery('#accordion').append(title);
+              $.each(values,function( index, value ) {  
+                  jQuery('#'+ville).append('Nom du lieu : '+response.rowNomLieu[value]+ '<br/>adresse : '+ response.rowAdresse[value]+'<br/> description : '+ response.rowDescription[value]+'<br/><hr>');
+                });  
+            });
+                
+            
+            $('#accordion').accordion();
+          }
+        });  
+      });
+      $('#ville').on('click',function(){
+        jQuery.ajax({
+          url: '/?q=filteretat',
+          success: function (response) {
+            console.log(response);
+            $('#accordion').empty();
+            $.each(response.rowCityCid,function( index, values ) {
+              var ville = index;
+              var title = $('<h3>'+ index +'</h3><div id="'+index+'"></div>');
+              jQuery('#accordion').append(title);
+              $.each(values,function( index, value ) {  
+                  jQuery('#'+ville).append('Nom du lieu : '+response.rowNomLieu[value]+ '<br/>adresse : '+ response.rowAdresse[value]+'<br/> description : '+ response.rowDescription[value]+'<br/><hr>');
+                });  
+            });
+                
+            
+            $('#accordion').accordion();
+          }
+        });  
+      });
+      $('#pays').on('click',function(){
+        jQuery.ajax({
+          url: '/?q=filterpays',
+          success: function (response) {
+            console.log(response);
+            $('#accordion').empty();
+            $.each(response.rowCityCid,function( index, values ) {
+              var ville = index;
+              ville = ville.replace(/ /g,"");
+              var title = $('<h3>'+ index +'</h3><div id="'+ville+'"></div>');
+              jQuery('#accordion').append(title);
+              $.each(values,function( index, value ) { 
+                  jQuery('#'+ville).append('Nom du lieu : '+response.rowNomLieu[value]+ '<br/>adresse : '+ response.rowAdresse[value]+'<br/> description : '+ response.rowDescription[value]+'<br/><hr>');
+                });  
+            });
+                
+            
+            $('#accordion').accordion();
+          }
+        });  
+      });
   });
 </script>
 
