@@ -1,6 +1,5 @@
 <div id='compteur'></div>
 <div style='width:890px!important;height:500px!important;display: block!important;'>
-<div id='map'></div>
 <div id='mapdiv' style='width:890px!important;height:500px!important;display: block!important;'></div>
 </div>
 <div id='list'></div>
@@ -10,7 +9,10 @@
 <button id="ville">Ville</button>
 <button id="pays">Pays</button>
 </div>
+
+<div id="accordioncontainer">
 <div id="accordion">
+</div>
     
 </div>
 <!--<script src="http://www.openlayers.org/api/OpenLayers.js"></script>-->
@@ -88,13 +90,16 @@
             jQuery('#accordion').accordion();
           }
         });
+        
       // filters
       jQuery('#cite').on('click',function(){
         jQuery.ajax({
           url: '/?q=filtercite',
           success: function (response) {
             console.log(response);
-            jQuery('#accordion').empty();
+            
+            jQuery('#accordioncontainer').empty();
+            jQuery('#accordioncontainer').append("<div id='accordion'></div>");
             jQuery.each(response.rowCityCid,function( index, values ) {
               var ville = index;
               var title = jQuery('<h3>'+ index +'</h3><div id="'+index+'"></div>');
@@ -108,12 +113,14 @@
           }
         });  
       });
+      
       jQuery('#ville').on('click',function(){
         jQuery.ajax({
           url: '/?q=filteretat',
           success: function (response) {
             console.log(response);
-            jQuery('#accordion').empty();
+            jQuery('#accordioncontainer').empty();
+            jQuery('#accordioncontainer').append("<div id='accordion'></div>");
             jQuery.each(response.rowCityCid,function( index, values ) {
               var ville = index;
               var title = jQuery('<h3>'+ index +'</h3><div id="'+index+'"></div>');
@@ -128,12 +135,14 @@
           }
         });  
       });
+      
       jQuery('#pays').on('click',function(){
         jQuery.ajax({
           url: '/?q=filterpays',
           success: function (response) {
             console.log(response);
-            jQuery('#accordion').empty();
+            jQuery('#accordioncontainer').empty();
+            jQuery('#accordioncontainer').append("<div id='accordion'></div>");
             jQuery.each(response.rowCityCid,function( index, values ) {
               var ville = index;
               ville = ville.replace(/ /g,"");
