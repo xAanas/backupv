@@ -1,6 +1,9 @@
 <div id='compteur'></div>
-<div style='width:890px!important;height:500px!important;display: block!important;'>
+<!--<div style='width:890px!important;height:500px!important;display: block!important;'>
 <div id='mapdiv' style='width:890px!important;height:500px!important;display: block!important;'></div>
+</div>-->
+<div style='width:100%!important;height:500px!important;display: block!important;'>
+<div id='mapdiv' style='width:100%!important;height:500px!important;display: block!important;'></div>
 </div>
 <div id='list'></div>
 <h3>Veuillez choisir un filtre : </h3>
