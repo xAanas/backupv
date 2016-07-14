@@ -1127,7 +1127,7 @@ jQuery(function () {
             };
             jQuery.ajax({
                 method: "GET",
-                url: "http://nominatim.openstreetmap.org/reverse",
+                url: "https://nominatim.openstreetmap.org/reverse",
                 data: data
             }).done(function (msg) {
                 console.log(msg);
