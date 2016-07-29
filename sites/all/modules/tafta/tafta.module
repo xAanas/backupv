@@ -256,7 +256,7 @@ function tafta_menu() {
       'page callback' => 'showmapdesalertes',
     );
      $items['cartehorstafta'] = array(
-      'title' => 'Carte des hors TAFTA',
+      'title' => 'Carte des lieux Hors TAFTA et CETA',
       'access arguments' =>  array('access content'),
       'page callback' => 'showcartehorstafta',
     );
@@ -275,6 +275,11 @@ function tafta_menu() {
      $items['filterpays']=array(
        'access arguments' =>  array('access content'),
        "page callback"=>'filterpays_submissions_tafta'
+     );
+     $items['filterlocalite']=array(
+       'access arguments' =>  array('access content'),
+       "page callback"=>'filterlocalite_submissions_tafta',
+       "page arguments" => array(1)
      );
      $items['mapjson']=array(
        'access arguments' =>  array('access content'),
@@ -536,8 +541,29 @@ function afficher_map_alertes() {
            }
     }
     
+    $arrayTemp = [];
+    $arrayTempDeId = [];
+    foreach($rowCid as $Cid){
+      $arrayTemp[$Cid] = $rowNomLieu[$Cid];
+    }
+    sort($arrayTemp);
+      
+    foreach( $arrayTemp as $villeNom){
+      foreach( $rowNomLieu as $key => $value){
+        if($villeNom == $value){
+          $arrayTempDeId[] = $key;
+        }
+      }
+    }
+    foreach( $arrayTempDeId as $id){
+      $rowCityCidFinal[] = $id;
+    }
+    
+    $fileUrl = db_query("select fu.id as id, fm.filename as fid from file_usage fu, file_managed fm where fu.module = 'webform' and fu.fid = fm.fid");
+    $fileUrl = $fileUrl->fetchAll();
     $rows = [
-      "rowCid" => $rowCid,
+      "fileUrl" => $fileUrl,
+      "rowCid" => $rowCityCidFinal,
       "rowType" => $rowType,
       "rowNomLieu" => $rowNomLieu,
       "rowDateDeclaration" => $rowDateDeclaration,
@@ -597,6 +623,7 @@ function afficher_map_alertes() {
     $rowCityCid = array();
     //compteur
     $compteur = 0;
+    $rowCityCidFinal = array();
     
     // *************  corp de la fontion  *****************
     $query = db_select('webform_submitted_data', 'al');
@@ -658,8 +685,34 @@ function afficher_map_alertes() {
              }
            }
     }
+    foreach($rowCityCid as $key => $value){
+      $ville = $key;
+      $villeIds = $value;
+      $arrayTemp = [];
+      $arrayTempDeId = [];
+      foreach( $villeIds as $villeId){
+        $arrayTemp[$villeId] = $rowNomLieu[$villeId];
+      }
+      sort($arrayTemp);
+      
+      foreach( $arrayTemp as $villeNom){
+        foreach( $rowNomLieu as $key => $value){
+          if($villeNom == $value){
+            $arrayTempDeId[] = $key;
+          }
+        }
+      }
+      foreach( $arrayTempDeId as $id){
+        $rowCityCidFinal[$ville][] = $id;
+      }
+    }
+    ksort($rowCityCidFinal);
+    
+    $fileUrl = db_query("select fu.id as id, fm.filename as fid from file_usage fu, file_managed fm where fu.module = 'webform' and fu.fid = fm.fid");
+    $fileUrl = $fileUrl->fetchAll();
     
     $rows = [
+      "fileUrl" => $fileUrl,
       "rowCid" => $rowCid,
       "rowType" => $rowType,
       "rowNomLieu" => $rowNomLieu,
@@ -674,7 +727,7 @@ function afficher_map_alertes() {
       "rowCountry" => $rowCountry,
       "rowPostalCode" => $rowPostalCode,
       "compteur" => $compteur,
-      "rowCityCid" => $rowCityCid
+      "rowCityCid" => $rowCityCidFinal
         ];
     
     //afficher la table des alertes
@@ -721,6 +774,7 @@ function afficher_map_alertes() {
     $rowEtatCid = array();
     //compteur
     $compteur = 0;
+    $rowCityCidFinal = array();
     
     // *************  corp de la fontion  *****************
     $query = db_select('webform_submitted_data', 'al');
@@ -782,8 +836,34 @@ function afficher_map_alertes() {
              }
            }
     }
+    foreach($rowCityCid as $key => $value){
+      $ville = $key;
+      $villeIds = $value;
+      $arrayTemp = [];
+      $arrayTempDeId = [];
+      foreach( $villeIds as $villeId){
+        $arrayTemp[$villeId] = $rowNomLieu[$villeId];
+      }
+      sort($arrayTemp);
+      
+      foreach( $arrayTemp as $villeNom){
+        foreach( $rowNomLieu as $key => $value){
+          if($villeNom == $value){
+            $arrayTempDeId[] = $key;
+          }
+        }
+      }
+      foreach( $arrayTempDeId as $id){
+        $rowCityCidFinal[$ville][] = $id;
+      }
+    }
+    ksort($rowCityCidFinal);
+    
+    $fileUrl = db_query("select fu.id as id, fm.filename as fid from file_usage fu, file_managed fm where fu.module = 'webform' and fu.fid = fm.fid");
+    $fileUrl = $fileUrl->fetchAll();
     
     $rows = [
+      "fileUrl" => $fileUrl,
       "rowCid" => $rowCid,
       "rowType" => $rowType,
       "rowNomLieu" => $rowNomLieu,
@@ -798,7 +878,7 @@ function afficher_map_alertes() {
       "rowCountry" => $rowCountry,
       "rowPostalCode" => $rowPostalCode,
       "compteur" => $compteur,
-      "rowCityCid" => $rowCityCid
+      "rowCityCid" => $rowCityCidFinal
         ];
     
     //afficher la table des alertes
@@ -906,8 +986,13 @@ function afficher_map_alertes() {
              }
            }
     }
+    ksort($rowCityCidFinal);
+    
+    $fileUrl = db_query("select fu.id as id, fm.filename as fid from file_usage fu, file_managed fm where fu.module = 'webform' and fu.fid = fm.fid");
+    $fileUrl = $fileUrl->fetchAll();
     
     $rows = [
+      "fileUrl" => $fileUrl,
       "rowCid" => $rowCid,
       "rowType" => $rowType,
       "rowNomLieu" => $rowNomLieu,
@@ -923,6 +1008,156 @@ function afficher_map_alertes() {
       "rowPostalCode" => $rowPostalCode,
       "compteur" => $compteur,
       "rowCityCid" => $rowCityCid
+        ];
+    
+    //afficher la table des alertes
+    //$output = theme('table',array('header'=> $header, 'rows' => $rows));
+    header('Content-Type: application/json');
+    echo json_encode($rows);
+}
+/**
+   * générer la liste des géolocalisation des alertes actives
+   */
+  function filterlocalite_submissions_tafta() {
+    
+    //  *************    variables utilisées ****************
+    
+    // le header des enregistrement
+    $header = [];
+    // $rows tableau des enregistrements
+    
+    // liste des types
+    $rowType = array();
+    // liste des noms des lieux
+    $rowNomLieu = array();
+    // liste des dates de declarations
+    $rowDateDeclaration = array();
+    // liste des descriptions
+    $rowDescription = array();
+    // liste des nom et prenom
+    $rowNomPrenom = array();
+    // liste des email
+    $rowEmail = array();
+    // liste des adresse
+    $rowAdresse = array();
+    // liste des City
+    $rowCity = array();
+    // liste des Country
+    $rowCountry = array();
+    // liste des PostalCode
+    $rowPostalCode = array();
+    // liste des latitudes
+    $rowLatitudes = array();
+    // liste des longitudes
+    $rowLongitudes = array();
+    // liste cid situé dans les cité
+    $rowPaysCid = array();
+    //compteur
+    $compteur = 0;
+    $rowCityCidFinal =array();
+    
+    // *************  corp de la fontion  *****************
+    $query = db_select('webform_submitted_data', 'al');
+    $query
+        ->fields('al',array('nid','sid','cid','data','no'))
+        ->condition('nid',array(4),'IN')
+        ->orderBy('sid','DESC');
+    
+    $results = $query->execute();
+    
+    $header = array(t('Gouvernorat'),t('Municipalité'),t('Latitude'),t('Longitude'));
+    
+    foreach ($results AS $result) {
+             $rowCid[] = $result->sid;
+            
+           
+           if($result->cid == 1){
+             $rowType[$result->sid] = $result->data;
+             $rowCityCid[$result->data][] = $result->sid;
+           }
+           if($result->cid == 2){
+             $rowType[$result->sid] = $result->data;
+           }
+           if($result->cid == 3){
+             $rowNomLieu[$result->sid] = $result->data;
+           }
+           if($result->cid == 5){
+             $rowDateDeclaration[$result->sid] = $result->data;
+           }
+           if($result->cid == 6){
+             $rowDescription[$result->sid] = $result->data;
+           }
+           if($result->cid == 8){
+             $rowNomPrenom[$result->sid] = $result->data;
+           }
+           if($result->cid == 9){
+             $rowEmail[$result->sid] = $result->data;
+           }
+           if($result->cid == 12){
+
+             if($result->no == 'field_lattitude'){
+                $rowLatitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_longitude'){
+                $rowLongitudes[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_state'){
+                $rowCity[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_country'){
+                $rowCountry[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_postalcode'){
+                $rowPostalCode[$result->sid] = $result->data;
+             }
+             if($result->no == 'field_display'){
+                $rowAdresse[$result->sid] = $result->data;
+             }
+           }
+    }
+        foreach($rowCityCid as $key => $value){
+      $ville = $key;
+      $villeIds = $value;
+      $arrayTemp = [];
+      $arrayTempDeId = [];
+      foreach( $villeIds as $villeId){
+        $arrayTemp[$villeId] = $rowNomLieu[$villeId];
+      }
+      sort($arrayTemp);
+      
+      foreach( $arrayTemp as $villeNom){
+        foreach( $rowNomLieu as $key => $value){
+          if($villeNom == $value){
+            $arrayTempDeId[] = $key;
+          }
+        }
+      }
+      foreach( $arrayTempDeId as $id){
+        $rowCityCidFinal[$ville][] = $id;
+      }
+    }
+    ksort($rowCityCidFinal);
+    
+    $fileUrl = db_query("select fu.id as id, fm.filename as fid from file_usage fu, file_managed fm where fu.module = 'webform' and fu.fid = fm.fid");
+    $fileUrl = $fileUrl->fetchAll();
+    
+    $rows = [
+      "fileUrl" => $fileUrl,
+      "rowCid" => $rowCid,
+      "rowType" => $rowType,
+      "rowNomLieu" => $rowNomLieu,
+      "rowDateDeclaration" => $rowDateDeclaration,
+      "rowDescription" => $rowDescription,
+      "rowNomPrenom" => $rowNomPrenom,
+      "rowEmail" => $rowEmail,
+      "rowAdresse" => $rowAdresse,
+      "rowLatitudes" => $rowLatitudes,
+      "rowLongitudes" => $rowLongitudes,
+      "rowCity" => $rowCity,
+      "rowCountry" => $rowCountry,
+      "rowPostalCode" => $rowPostalCode,
+      "compteur" => $compteur,
+      "rowCityCid" => $rowCityCidFinal
         ];
     
     //afficher la table des alertes
