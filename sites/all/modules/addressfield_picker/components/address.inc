@@ -32,6 +32,7 @@ function _webform_theme_address() {
 }
 
 function _webform_edit_address($component) {
+  print_r($component);
   $form = array();
   $counties = _addressfield_picker_countries();
   $form['extra']['default_country'] = array(
@@ -86,9 +87,9 @@ function _webform_render_address($component, $value = NULL, $filter = TRUE) {
     //'#maxlength' => 255,
     '#weight' => 1,
     '#description' => t('Address'),
-    '#prefix'           => '<div class="form-item form-type-textfield form-item-submitted-'.$component['form_key'].'-field-display" style="dispaly:inline important!"><span style="dispaly:inline important!">',
+    '#prefix'           => '<label for="form-item-submitted-addrissa">Adresse postale</label><div class="form-item form-type-textfield form-item-submitted- form-item-submitted-addrissa'.$component['form_key'].'-field-display" style="display:inline!important"><span style="display:inline!important">',
     '#theme_wrappers'   => array(),
-    '#suffix'           => '<button id="form-item-submitted-'.$component['form_key'].'-field-display-btn" style="dispaly:inline important!"><i class="fa fa-map-marker"></i></button></span>
+    '#suffix'           => '<button id="form-item-submitted-'.$component['form_key'].'-field-display-btn" style="display:inline!important"><i class="fa fa-map-marker"></i></button></span>
                                 <div id="'.$component['form_key'].'-mypopin" style="display:none;">
                                         <div id="'.$component['form_key'].'-mymap" style="width:400px;height:400px"></div>
                                         <p><strong>Help</strong>:
@@ -197,7 +198,7 @@ function _webform_render_address($component, $value = NULL, $filter = TRUE) {
   jQuery(document).ready(function(){
   
   jQuery("input[type=text][name=\'submitted['.$component['form_key'].'][field_display]\'").autocomplete({
-        serviceUrl: "http://photon.komoot.de/api/",
+        serviceUrl: "http://photon.komoot.de/api/?lang=fr",
         paramName: "q",
         onSelect: function (suggestion) {
             if (typeof connected_user_is_attendee !== "undefined") {

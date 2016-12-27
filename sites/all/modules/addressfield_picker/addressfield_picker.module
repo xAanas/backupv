@@ -21,7 +21,7 @@ function addressfield_picker_webform_component_info() {
       'email_address' => FALSE,
       'email_name' => FALSE,
       'required' => FALSE,
-      'title_display' => FALSE,
+      'title_display' => TRUE,
       'title_inline' => FALSE,
       'conditional' => FALSE,
       'group' => FALSE,
